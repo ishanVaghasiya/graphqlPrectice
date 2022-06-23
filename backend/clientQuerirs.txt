@@ -1,0 +1,86 @@
+# //-- Get all user Data --//
+query allUsersDataList{
+  allUsers {
+    lastName
+    _id
+    firstName
+  }
+}
+
+# //-- Get single user Data --//
+query singleUserData{
+	singleUser(_id:"23131"){
+    firstName,
+    _id,
+	}
+}
+# ---above query with varivable for dynamic
+query singleUserData($userId:ID!){
+	singleUser(_id:$userId){
+    firstName,
+    _id,
+	}
+}
+
+
+# //-- Get all user quotes --//
+query getQuotes {
+  userQuotes {
+    name
+    by
+  }
+}
+
+# //-- Get single user Quote --//
+query singleUserQuote{
+  singleUserQuote(by:"23131"){
+    name
+  }
+}
+
+#---above query with varivable for dynamic
+query singleUserQuote($userId:ID!){
+  singleUserQuote(by:$userId){
+    name
+  }
+}
+
+
+
+#////////////////////////// mutation ////////////////////
+
+# //-- Add new user data --// 
+mutation createUser($userNew:UserInput!){
+  user:signupUser(userNew:$userNew){     #//user is alias for signupUser
+    _id
+    firstName
+    lastName
+    email
+  }
+}
+# ---query varivable for above
+{
+  "userNew": {
+    "firstName": "bhuro",
+    "lastName": "bhai",
+    "email": "bhuriyo@sd.com",
+    "password": "12345"
+  }
+}
+
+
+
+# //--Sign in User --//
+mutation SigninUser($userSignin: UserSigninInput!) {
+  user: signinUser(userSignin: $userSignin) {
+    token
+  }
+}
+# ---query varivable for above
+{
+  "userSignin": {
+    "email": "ir@mail.com",
+    "password": "12345"
+  }
+}
+
